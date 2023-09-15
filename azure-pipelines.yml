@@ -1,0 +1,25 @@
+trigger:
+  - master
+
+name: $(Build.BuildId)
+
+pool:
+  name: 'E-Commerce'
+
+variables:
+  - name: jcs_version
+    value: initialValue
+
+  - name: bucket_name
+    value: jcsr-fe-assets
+
+steps:
+  - script: |
+      set -e # abort script if any command fails
+      export http_proxy=http://prodproxy.jio.com:8080
+      export https_proxy=http://prodproxy.jio.com:8080
+      export PATH="/home/udeploy/node-v16.16.0-linux-x64/bin:$PATH"
+      npm ci
+      npm run lint
+      npm run build
+    displayName: 'NPM Install and Build'
