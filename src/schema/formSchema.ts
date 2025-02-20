@@ -1,4 +1,4 @@
-export type FieldType = "text" | "number" | "select";
+export type FieldType = "text" | "number" | "select" | "radio";
 
 export interface FormField {
   id: string;
